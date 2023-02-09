@@ -89,37 +89,37 @@ func GetConta(conta_numero int, agencia_numero int) (Conta, error) {
 }
 
 // Cria uma conta
-func CreateConta(conta Conta) error {
+func CreateConta(conta Conta) (int64, error) {
 	query := `insert into contas(conta_numero, agencia_numero, titular, tipo, identificador, ativa) values($1, $2, $3, $4, $5, $6);`
 
-	_, erro := db.Exec(query, conta.Conta_numero, conta.Agencia_numero, conta.Titular, conta.Tipo, conta.Identificador, conta.Ativa)
+	result, erro := db.Exec(query, conta.Conta_numero, conta.Agencia_numero, conta.Titular, conta.Tipo, conta.Identificador, conta.Ativa)
 
 	if erro != nil {
-		return erro
+		return -1, erro
 	}
 
-	return nil
+	return result.RowsAffected()
 
 }
 
 // atualiza uma conta
-func UpdateConta(conta Conta) error {
+func UpdateConta(conta Conta) (int64, error) {
 	query := `update contas set conta_numero=$1, agencia_numero=$2, titular=$3, tipo=$4, identificador=$5, ativa=$6 where conta_numero=$1 and agencia_numero=$2;`
 
-	_, erro := db.Exec(query, conta.Conta_numero, conta.Agencia_numero, conta.Titular, conta.Tipo, conta.Identificador, conta.Ativa)
+	result, erro := db.Exec(query, conta.Conta_numero, conta.Agencia_numero, conta.Titular, conta.Tipo, conta.Identificador, conta.Ativa)
 	if erro != nil {
-		return erro
+		return -1, erro
 	}
-	return nil
+	return result.RowsAffected()
 }
 
 // deletea uma conta
-func DeleteConta(conta_numero int, agencia_numero int) error {
+func DeleteConta(conta_numero int, agencia_numero int) (int64, error) {
 	query := `delete from contas where conta_numero=$1 and agencia_numero=$2;`
-	_, erro := db.Exec(query, conta_numero, agencia_numero)
+	result, erro := db.Exec(query, conta_numero, agencia_numero)
 	if erro != nil {
-		return erro
+		return -1, erro
 	}
-	return nil
+	return result.RowsAffected()
 
 }
