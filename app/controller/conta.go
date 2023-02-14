@@ -12,7 +12,13 @@ import (
 	tipos "b2/model"
 )
 
-// Recupera todas as contas
+// GetContas godoc
+// @Summary Busca todas as contas
+// @Description Busca todas as contas cadastradas
+// @Tags conta
+// @Produce  json
+// @Success 200
+// @Router /api/contas [get]
 func GetContas(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -25,7 +31,15 @@ func GetContas(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Recupera Uma conta em específico
+// GetConta godoc
+// @Summary Busca uma conta conta em específico
+// @Description Busca uma conta conta em específico desc
+// @Tags conta
+// @Param conta path int true "Número da Conta"
+// @Param agencia path int true "Número da Agência"
+// @Produce  json
+// @Success 200
+// @Router /api/contas/{conta}/{agencia} [get]
 func GetConta(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
@@ -63,7 +77,14 @@ func GetConta(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// Cria uma conta
+// CreateConta godoc
+// @Summary Cria uma conta
+// @Description Cria uma conta
+// @Tags conta
+// @Accept  json
+// @Produce  json
+// @Success 200
+// @Router /api/contas [post]
 func CreateConta(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -126,7 +147,14 @@ func CreateConta(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// atualiza uma conta
+// UpdateConta godoc
+// @Summary Atualiza dados de uma conta
+// @Description Atualiza dados de uma conta
+// @Tags conta
+// @Accept  json
+// @Produce  json
+// @Success 200
+// @Router /api/contas [put]
 func UpdateConta(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -182,7 +210,15 @@ func UpdateConta(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// deletea uma conta
+// DeleteConta godoc
+// @Summary Deleta uam conta
+// @Description Deleta uam conta
+// @Tags conta
+// @Param conta path int true "Número da Conta"
+// @Param agencia path int true "Número da Agência"
+// @Produce  json
+// @Success 200
+// @Router /api/contas/{conta}/{agencia} [delete]
 func DeleteConta(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 

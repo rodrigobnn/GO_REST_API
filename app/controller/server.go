@@ -5,7 +5,10 @@ import (
 	"log"
 	"net/http"
 
+	_ "b2/docs"
+
 	"github.com/gorilla/mux"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 var router *mux.Router
@@ -32,5 +35,9 @@ func Start() {
 
 	initHandlers()
 	fmt.Printf("router initialized and listening on 3200\n")
+
+	router.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
+
 	log.Fatal(http.ListenAndServe(":3200", router))
+
 }

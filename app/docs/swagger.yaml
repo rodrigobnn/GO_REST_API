@@ -1,0 +1,192 @@
+info:
+  contact: {}
+  description: This is a sample server Petstore server.
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /api/cartoes:
+    get:
+      description: Busca todos os cartões
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Busca todos os cartões
+      tags:
+      - cartao
+    post:
+      consumes:
+      - application/json
+      description: Cria um cartão
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Cria um cartão
+      tags:
+      - cartao
+    put:
+      consumes:
+      - application/json
+      description: Atualiza dados de um cartão
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Atualiza dados de um cartão
+      tags:
+      - cartao
+  /api/cartoes/{id}:
+    delete:
+      description: Deleta um cartão
+      parameters:
+      - description: Número do Cartão
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Deleta um cartão
+      tags:
+      - cartao
+    get:
+      description: Busca um cartão em específico
+      parameters:
+      - description: Número do Cartão
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Busca um cartão em específico
+      tags:
+      - cartao
+  /api/cartoes/saldo:
+    put:
+      description: Deleta um cartão
+      parameters:
+      - description: Número do Cartão
+        in: path
+        name: cartao_numero
+        required: true
+        type: integer
+      - description: Limite Disponível
+        in: path
+        name: limite_disponivel
+        required: true
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Deleta um cartão
+      tags:
+      - cartao
+  /api/cartoes/saldo/{id}:
+    get:
+      description: Deleta uam conta
+      parameters:
+      - description: Número do Cartão
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Deleta uam conta
+      tags:
+      - cartao
+  /api/contas:
+    get:
+      description: Busca todas as contas cadastradas
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Busca todas as contas
+      tags:
+      - conta
+    post:
+      consumes:
+      - application/json
+      description: Cria uma conta
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Cria uma conta
+      tags:
+      - conta
+    put:
+      consumes:
+      - application/json
+      description: Atualiza dados de uma conta
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Atualiza dados de uma conta
+      tags:
+      - conta
+  /api/contas/{conta}/{agencia}:
+    delete:
+      description: Deleta uam conta
+      parameters:
+      - description: Número da Conta
+        in: path
+        name: conta
+        required: true
+        type: integer
+      - description: Número da Agência
+        in: path
+        name: agencia
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Deleta uam conta
+      tags:
+      - conta
+    get:
+      description: Busca uma conta conta em específico desc
+      parameters:
+      - description: Número da Conta
+        in: path
+        name: conta
+        required: true
+        type: integer
+      - description: Número da Agência
+        in: path
+        name: agencia
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Busca uma conta conta em específico
+      tags:
+      - conta
+swagger: "2.0"

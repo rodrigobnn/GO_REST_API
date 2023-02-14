@@ -9,10 +9,19 @@ import (
 	"strconv"
 	"strings"
 
+	_ "b2/docs"
+
 	"github.com/gorilla/mux"
+	_ "github.com/swaggo/http-swagger"
 )
 
-// Recupera todos cartões
+// getCartoes godoc
+// @Summary Busca todos os cartões
+// @Description Busca todos os cartões
+// @Tags cartao
+// @Produce  json
+// @Success 200
+// @Router /api/cartoes [get]
 func getCartoes(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -25,7 +34,14 @@ func getCartoes(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Recupera um ou mais cartões
+// getCartao godoc
+// @Summary Busca um cartão em específico
+// @Description Busca um cartão em específico
+// @Tags cartao
+// @Param id path int true "Número do Cartão"
+// @Produce  json
+// @Success 200
+// @Router /api/cartoes/{id} [get]
 func getCartao(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
@@ -60,7 +76,14 @@ func getCartao(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode("Cartão não encontrado")
 }
 
-// Cria um cartão
+// createCartao godoc
+// @Summary Cria um cartão
+// @Description Cria um cartão
+// @Tags cartao
+// @Accept  json
+// @Produce  json
+// @Success 200
+// @Router /api/cartoes [post]
 func createCartao(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -113,7 +136,14 @@ func createCartao(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Atualiza um cartão
+// updateCartao godoc
+// @Summary Atualiza dados de um cartão
+// @Description Atualiza dados de um cartão
+// @Tags cartao
+// @Accept  json
+// @Produce  json
+// @Success 200
+// @Router /api/cartoes [put]
 func updateCartao(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -166,9 +196,17 @@ func updateCartao(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Deleta um cartão
+// deleteCartao godoc
+// @Summary Deleta um cartão
+// @Description Deleta um cartão
+// @Tags cartao
+// @Param id path int true "Número do Cartão"
+// @Produce  json
+// @Success 200
+// @Router /api/cartoes/{id} [delete]
 func deleteCartao(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+
 	params := mux.Vars(r)
 
 	cartao_numero, erro := strconv.ParseInt(params["id"], 10, 64)
@@ -203,7 +241,15 @@ func deleteCartao(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// Atualiza o saldo diposnível
+// updateSaldo godoc
+// @Summary Deleta um cartão
+// @Description Deleta um cartão
+// @Tags cartao
+// @Param cartao_numero path int true "Número do Cartão"
+// @Param limite_disponivel path number true "Limite Disponível"
+// @Produce  json
+// @Success 200
+// @Router /api/cartoes/saldo [put]
 func updateSaldo(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -251,7 +297,14 @@ func updateSaldo(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Busca o saldo disponível
+// getSaldo godoc
+// @Summary Deleta uam conta
+// @Description Deleta uam conta
+// @Tags cartao
+// @Param id path int true "Número do Cartão"
+// @Produce  json
+// @Success 200
+// @Router /api/cartoes/saldo/{id} [get]
 func getSaldo(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)

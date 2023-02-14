@@ -1,0 +1,290 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server Petstore server.",
+        "title": "Swagger Example API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/cartoes": {
+            "get": {
+                "description": "Busca todos os cartões",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cartao"
+                ],
+                "summary": "Busca todos os cartões",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza dados de um cartão",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cartao"
+                ],
+                "summary": "Atualiza dados de um cartão",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria um cartão",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cartao"
+                ],
+                "summary": "Cria um cartão",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/cartoes/saldo": {
+            "put": {
+                "description": "Deleta um cartão",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cartao"
+                ],
+                "summary": "Deleta um cartão",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Número do Cartão",
+                        "name": "cartao_numero",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "number",
+                        "description": "Limite Disponível",
+                        "name": "limite_disponivel",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/cartoes/saldo/{id}": {
+            "get": {
+                "description": "Deleta uam conta",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cartao"
+                ],
+                "summary": "Deleta uam conta",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Número do Cartão",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/cartoes/{id}": {
+            "get": {
+                "description": "Busca um cartão em específico",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cartao"
+                ],
+                "summary": "Busca um cartão em específico",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Número do Cartão",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deleta um cartão",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cartao"
+                ],
+                "summary": "Deleta um cartão",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Número do Cartão",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/contas": {
+            "get": {
+                "description": "Busca todas as contas cadastradas",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "conta"
+                ],
+                "summary": "Busca todas as contas",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza dados de uma conta",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "conta"
+                ],
+                "summary": "Atualiza dados de uma conta",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria uma conta",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "conta"
+                ],
+                "summary": "Cria uma conta",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/contas/{conta}/{agencia}": {
+            "get": {
+                "description": "Busca uma conta conta em específico desc",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "conta"
+                ],
+                "summary": "Busca uma conta conta em específico",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Número da Conta",
+                        "name": "conta",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Número da Agência",
+                        "name": "agencia",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deleta uam conta",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "conta"
+                ],
+                "summary": "Deleta uam conta",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Número da Conta",
+                        "name": "conta",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Número da Agência",
+                        "name": "agencia",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    }
+}
