@@ -9,8 +9,6 @@ type Conta struct {
 	Ativa          bool      `json:"ativa"`
 }
 
-//TODO retornar os sqlresults e conferir a execução das operações
-
 // Recupera todas as contas
 func GetContas() ([]Conta, error) {
 	var contas []Conta

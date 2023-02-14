@@ -10,10 +10,6 @@ import (
 	_ "github.com/lib/pq"
 )
 
-//TODO
-/*
-* usar sync.Mutex para fazer o travamento para edição
- */
 type TipoConta string
 
 const (

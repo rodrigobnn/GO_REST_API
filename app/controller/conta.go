@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -12,8 +11,6 @@ import (
 	"b2/model"
 	tipos "b2/model"
 )
-
-// var contas []tipos.Conta
 
 // Recupera todas as contas
 func GetContas(w http.ResponseWriter, r *http.Request) {
@@ -170,8 +167,6 @@ func UpdateConta(w http.ResponseWriter, r *http.Request) {
 	}
 	result, erro := model.UpdateConta(conta)
 
-	fmt.Printf("Results %d \n", result)
-
 	if result == 0 {
 		w.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(w).Encode("Conta não encontrada")
@@ -210,8 +205,6 @@ func DeleteConta(w http.ResponseWriter, r *http.Request) {
 	}
 
 	result, erro := model.DeleteConta(conta_param, agencia_param)
-
-	fmt.Printf("Results %d \n", result)
 
 	if result == 0 {
 		w.WriteHeader(http.StatusNotFound)

@@ -13,7 +13,7 @@ var (
 	amexConst   = []string{"34", "37"}
 )
 
-func validadorLuhn(cardNumber int64, master bool, visa bool, amex bool) bool {
+func ValidadorLuhn(cardNumber int64, master bool, visa bool, amex bool) bool {
 
 	strCardNumber := strconv.Itoa(int(cardNumber))
 
