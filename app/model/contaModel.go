@@ -1,50 +1,33 @@
 package model
 
+import "time"
+
+// TableName overrides the table name used by User to `profiles`
+func (Conta) TableName() string {
+	return "contas"
+}
+
 type Conta struct {
-	Conta_numero   int       `json:"conta_numero"`
-	Agencia_numero int       `json:"agencia_numero"`
+	Conta_numero   int       `gorm:"primaryKey;autoIncrement:false" json:"conta_numero"`
+	Agencia_numero int       `gorm:"primaryKey;autoIncrement:false" json:"agencia_numero"`
 	Titular        string    `json:"titular"`
 	Tipo           TipoConta `json:"tipo"`          //F = pessoa fisica / J = pessoa juridica
 	Identificador  string    `json:"identificador"` //CPF ou CNPJ a depender do tipo da conta
 	Ativa          bool      `json:"ativa"`
+	CreatedAt      time.Time `gorm:"autoCreateTime:false"`
+	UpdatedAt      time.Time `gorm:"autoUpdateTime:false"`
 }
 
 // Recupera todas as contas
 func GetContas() ([]Conta, error) {
 	var contas []Conta
 
-	query := `select conta_numero, agencia_numero, titular, tipo, identificador, ativa from contas;`
+	result := db.Find(&contas)
 
-	rows, erro := db.Query(query)
-	if erro != nil {
-		return contas, erro
+	if result.Error != nil {
+		return contas, result.Error
 	}
 
-	defer rows.Close()
-
-	for rows.Next() {
-		var conta_numero, agencia_numero int
-		var titular, identificador string
-		var ativa bool
-		var tipo TipoConta
-
-		err := rows.Scan(&conta_numero, &agencia_numero, &titular, &tipo, &identificador, &ativa)
-		if err != nil {
-			return contas, err
-		}
-
-		conta := Conta{
-			Conta_numero:   conta_numero,
-			Agencia_numero: agencia_numero,
-			Titular:        titular,
-			Tipo:           tipo,
-			Identificador:  identificador,
-			Ativa:          ativa,
-		}
-
-		contas = append(contas, conta)
-
-	}
 	return contas, nil
 }
 
@@ -52,34 +35,10 @@ func GetContas() ([]Conta, error) {
 func GetConta(conta_numero int, agencia_numero int) (Conta, error) {
 	var conta Conta
 
-	query := `select conta_numero, agencia_numero, titular, tipo, identificador, ativa from contas where conta_numero=$1 and agencia_numero=$2;`
-	row, erro := db.Query(query, conta_numero, agencia_numero)
+	result := db.Where("conta_numero = ? AND agencia_numero = ?", conta_numero, agencia_numero).First(&conta)
 
-	if erro != nil {
-		return conta, erro
-	}
-
-	defer row.Close()
-
-	if row.Next() {
-		var conta_numero, agencia_numero int
-		var titular, identificador string
-		var ativa bool
-		var tipo TipoConta
-
-		erro := row.Scan(&conta_numero, &agencia_numero, &titular, &tipo, &identificador, &ativa)
-		if erro != nil {
-			return conta, erro
-		}
-
-		conta = Conta{
-			Conta_numero:   conta_numero,
-			Agencia_numero: agencia_numero,
-			Titular:        titular,
-			Tipo:           tipo,
-			Identificador:  identificador,
-			Ativa:          ativa,
-		}
+	if result.Error != nil {
+		return conta, result.Error
 	}
 
 	return conta, nil
@@ -88,36 +47,38 @@ func GetConta(conta_numero int, agencia_numero int) (Conta, error) {
 
 // Cria uma conta
 func CreateConta(conta Conta) (int64, error) {
-	query := `insert into contas(conta_numero, agencia_numero, titular, tipo, identificador, ativa) values($1, $2, $3, $4, $5, $6);`
 
-	result, erro := db.Exec(query, conta.Conta_numero, conta.Agencia_numero, conta.Titular, conta.Tipo, conta.Identificador, conta.Ativa)
+	result := db.Create(&conta)
 
-	if erro != nil {
-		return -1, erro
+	if result.Error != nil {
+		return -1, result.Error
 	}
 
-	return result.RowsAffected()
+	return result.RowsAffected, nil
 
 }
 
 // atualiza uma conta
 func UpdateConta(conta Conta) (int64, error) {
-	query := `update contas set conta_numero=$1, agencia_numero=$2, titular=$3, tipo=$4, identificador=$5, ativa=$6 where conta_numero=$1 and agencia_numero=$2;`
 
-	result, erro := db.Exec(query, conta.Conta_numero, conta.Agencia_numero, conta.Titular, conta.Tipo, conta.Identificador, conta.Ativa)
-	if erro != nil {
-		return -1, erro
+	result := db.Model(Conta{}).Where("conta_numero = ? AND agencia_numero = ?", conta.Conta_numero, conta.Agencia_numero).Updates(conta)
+
+	if result.Error != nil {
+		return -1, result.Error
 	}
-	return result.RowsAffected()
+
+	return result.RowsAffected, nil
+
 }
 
 // deletea uma conta
 func DeleteConta(conta_numero int, agencia_numero int) (int64, error) {
-	query := `delete from contas where conta_numero=$1 and agencia_numero=$2;`
-	result, erro := db.Exec(query, conta_numero, agencia_numero)
-	if erro != nil {
-		return -1, erro
+	result := db.Where("conta_numero = ? AND agencia_numero = ?", conta_numero, agencia_numero).Delete(&Conta{})
+
+	if result.Error != nil {
+		return -1, result.Error
 	}
-	return result.RowsAffected()
+
+	return result.RowsAffected, nil
 
 }

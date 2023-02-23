@@ -1,11 +1,13 @@
 package model
 
 import (
-	"database/sql"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/joho/godotenv"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 
 	_ "github.com/lib/pq"
 )
@@ -17,11 +19,12 @@ const (
 	J TipoConta = "Pessoa Jurídica"
 )
 
-// declare a db object, where we can use throughout the model package
-// so in blog.go, we have access to this object
-var db *sql.DB
+type Tabler interface {
+	TableName() string
+}
 
-// a struct to hold all the db connection information
+var db *gorm.DB
+
 type connection struct {
 	Host     string
 	Port     string
@@ -46,8 +49,17 @@ func Init() {
 		DBName:   os.Getenv("POSTGRES_DB"),
 	}
 
-	// try to open our postgresql connection with our connection info
-	db, err = sql.Open("postgres", connToString(connInfo))
+	// // try to open our postgresql connection with our connection info
+	// db, err = sql.Open("postgres", connToString(connInfo))
+
+	// dsn := "host=" + os.Getenv("POSTGRES_URL") +
+	// 	" user=" + os.Getenv("POSTGRES_USER") +
+	// 	" password=" + os.Getenv("POSTGRES_PASSWORD") +
+	// 	" dbname=" + os.Getenv("POSTGRES_DB") +
+	// 	" port=" + os.Getenv("POSTGRES_PORT") +
+	// 	" sslmode=disable"
+	db, err = gorm.Open(postgres.Open(connToString(connInfo)), &gorm.Config{})
+
 	if err != nil {
 		fmt.Printf("Erro ao conectar no banco de dados: %s\n", err.Error())
 		return
@@ -56,7 +68,13 @@ func Init() {
 	}
 
 	// check if we can ping our DB
-	err = db.Ping()
+	sqlDB, erro := db.DB()
+
+	if erro != nil {
+		log.Fatal(erro)
+	}
+
+	err = sqlDB.Ping()
 	if err != nil {
 		fmt.Printf("Erro, não foi possível dar ping no BD: %s\n", err.Error())
 		return

@@ -6,10 +6,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gorilla/mux"
-
 	"b2/model"
 	tipos "b2/model"
+
+	"github.com/gorilla/mux"
 )
 
 // GetContas godoc

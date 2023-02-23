@@ -1,6 +1,7 @@
 package controller
 
 import (
+	_ "b2/docs"
 	"b2/model"
 	"b2/util"
 	"encoding/json"
@@ -8,8 +9,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-
-	_ "b2/docs"
 
 	"github.com/gorilla/mux"
 	_ "github.com/swaggo/http-swagger"
